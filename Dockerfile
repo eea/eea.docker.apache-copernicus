@@ -75,6 +75,6 @@ RUN  sed -i '/LogFormat.*common/a \    LogFormat \"%{X-Forwarded-For}i %l %u %t 
  &&  sed -i "$( grep -n CustomLog.*common /usr/local/apache2/conf/httpd.conf | cut -d: -f1)s/common/proxy env=forwarded/" /usr/local/apache2/conf/httpd.conf
 
 
-
+RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["httpd-foreground"]
