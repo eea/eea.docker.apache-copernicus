@@ -65,10 +65,10 @@ FROM eeacms/apache:2.4-2.6
 COPY --from=builder  /usr/local/apache2/modules/mod_maxminddb.so  /usr/local/apache2/modules/
 
 # enable proxy formatted logs
-RUN  sed -i '/LogFormat.*common/a \    LogFormat \"%{X-Forwarded-For}i %l %u %t \\"%r\\" %>s %b \\"%{Referer}i\\" \\"%{User-Agent}i\\"" proxy' /usr/local/apache2/conf/httpd.conf \
- &&  sed -i "$( grep -n CustomLog.*common /usr/local/apache2/conf/httpd.conf | cut -d: -f1)i\    SetEnvIf X-Forwarded-For \"^.*\..*\..*\..*\" forwarded" /usr/local/apache2/conf/httpd.conf \
- &&  sed -i "$( grep -n CustomLog.*common /usr/local/apache2/conf/httpd.conf | cut -d: -f1)i\    CustomLog /proc/self/fd/1 combined env=\!forwarded" /usr/local/apache2/conf/httpd.conf \
- &&  sed -i "$( grep -n CustomLog.*common /usr/local/apache2/conf/httpd.conf | cut -d: -f1)s/common/proxy env=forwarded/" /usr/local/apache2/conf/httpd.conf
+# RUN  sed -i '/LogFormat.*common/a \    LogFormat \"%{X-Forwarded-For}i %l %u %t \\"%r\\" %>s %b \\"%{Referer}i\\" \\"%{User-Agent}i\\"" proxy' /usr/local/apache2/conf/httpd.conf \
+#  &&  sed -i "$( grep -n CustomLog.*common /usr/local/apache2/conf/httpd.conf | cut -d: -f1)i\    SetEnvIf X-Forwarded-For \"^.*\..*\..*\..*\" forwarded" /usr/local/apache2/conf/httpd.conf \
+#  &&  sed -i "$( grep -n CustomLog.*common /usr/local/apache2/conf/httpd.conf | cut -d: -f1)i\    CustomLog /proc/self/fd/1 combined env=\!forwarded" /usr/local/apache2/conf/httpd.conf \
+#  &&  sed -i "$( grep -n CustomLog.*common /usr/local/apache2/conf/httpd.conf | cut -d: -f1)s/common/proxy env=forwarded/" /usr/local/apache2/conf/httpd.conf
 
 COPY docker-entrypoint.sh  /
 COPY reload.sh             /bin/reload
