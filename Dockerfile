@@ -12,6 +12,7 @@ RUN runDeps="curl less libaprutil1-ldap openssl ca-certificates libmaxminddb-dev
  && sed -i 's|#LoadModule proxy_module|LoadModule proxy_module|' /usr/local/apache2/conf/httpd.conf \
  && sed -i 's|#LoadModule proxy_http_module|LoadModule proxy_http_module|' /usr/local/apache2/conf/httpd.conf \
  && sed -i 's|#LoadModule deflate_module modules/mod_deflate.so|LoadModule deflate_module modules/mod_deflate.so|' /usr/local/apache2/conf/httpd.conf \
+ && sed -i 's|#LoadModule maxminddb_module modules/mod_maxminddb.so|LoadModule maxminddb_module modules/mod_maxminddb.so|' /usr/local/apache2/conf/httpd.conf \
  && sed -i 's|#Include conf/extra/httpd-autoindex.conf|Include conf/extra/httpd-autoindex.conf|' /usr/local/apache2/conf/httpd.conf \
  && sed -i 's|#LoadModule ldap_module|LoadModule ldap_module|' /usr/local/apache2/conf/httpd.conf \
  && sed -i 's|#LoadModule authnz_ldap_module|LoadModule authnz_ldap_module|' /usr/local/apache2/conf/httpd.conf \
