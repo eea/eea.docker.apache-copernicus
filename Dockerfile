@@ -21,6 +21,7 @@ RUN set -eux; \
     cmake \
     build-essential \
     libaprutil1-dev \
+    libmaxminddb-dev \
   ; \
   rm -r /var/lib/apt/lists/*; \
   \
