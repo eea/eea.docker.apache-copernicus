@@ -33,11 +33,11 @@ RUN set -eux; \
   ./configure; \
   make install; \
   cd ..; \
-  rm -rf maxmind; \
-  sh -c "echo /usr/local/lib  >> /etc/ld.so.conf.d/local.conf"; \
-  ldconfig
+  rm -rf maxmind
 
 FROM eeacms/apache:2.4-2.6
 COPY --from=builder  /usr/local/apache2/modules/mod_maxminddb.so  /usr/local/apache2/modules/
+RUN sh -c "echo /usr/local/lib  >> /etc/ld.so.conf.d/local.conf"
+RUN ldconfig
 RUN sed -i 's|#LoadModule suexec_module modules/mod_suexec.so|LoadModule maxminddb_module modules/mod_maxminddb.so|' /usr/local/apache2/conf/httpd.conf
 # RUN sed -i 's|#LoadModule maxminddb_module modules/mod_maxminddb.so|LoadModule maxminddb_module modules/mod_maxminddb.so|' /usr/local/apache2/conf/httpd.conf
