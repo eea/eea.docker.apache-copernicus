@@ -33,7 +33,9 @@ RUN set -eux; \
   ./configure; \
   make install; \
   cd ..; \
-  rm -rf maxmind
+  rm -rf maxmind; \
+  sh -c "echo /usr/local/lib  >> /etc/ld.so.conf.d/local.conf"; \
+  ldconfig
 
 FROM eeacms/apache:2.4-2.6
 COPY --from=builder  /usr/local/apache2/modules/mod_maxminddb.so  /usr/local/apache2/modules/
