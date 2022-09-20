@@ -37,4 +37,5 @@ RUN set -eux; \
 
 FROM eeacms/apache:2.4-2.6
 COPY --from=builder  /usr/local/apache2/modules/mod_maxminddb.so  /usr/local/apache2/modules/
-RUN sed -i 's|#LoadModule maxminddb_module modules/mod_maxminddb.so|LoadModule maxminddb_module modules/mod_maxminddb.so|' /usr/local/apache2/conf/httpd.conf
+RUN sed -i 's|#LoadModule suexec_module modules/mod_suexec.so|LoadModule maxminddb_module modules/mod_maxminddb.so|' /usr/local/apache2/conf/httpd.conf
+# RUN sed -i 's|#LoadModule maxminddb_module modules/mod_maxminddb.so|LoadModule maxminddb_module modules/mod_maxminddb.so|' /usr/local/apache2/conf/httpd.conf
