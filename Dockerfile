@@ -1,4 +1,4 @@
-FROM eeacms/apache:2.4-2.7
+FROM eeacms/apache:2.4.54
 RUN set -eux; \
   \
   savedAptMark="$(apt-mark showmanual)"; \
