@@ -1,30 +1,27 @@
-FROM eeacms/apache:2.4.54
+FROM eeacms/apache:2.4-3.4
+
 RUN set -eux; \
   \
-  savedAptMark="$(apt-mark showmanual)"; \
-  apt-get update; \
-  apt-get install -y --no-install-recommends \
-    bzip2 \
-    ca-certificates \
-    dirmngr \
-    dpkg-dev \
-    gcc \
-    gnupg2 \
-    liblua5.2-dev \
-    libnghttp2-dev \
-    libpcre3-dev \
-    libssl-dev \
-    libxml2-dev \
-    make \
-    wget \
-    zlib1g-dev \
-    cmake \
-    build-essential \
-    libaprutil1-dev \
-    libmaxminddb-dev \
+  apk add --no-cache \
+  bzip2 \
+  ca-certificates \
+  dirmngr \
+  dpkg-dev \
+  gcc \
+  gnupg \
+  lua-dev \
+  nghttp2-dev \
+  pcre-dev \
+  openssl-dev \
+  libxml2-dev \
+  make \
+  wget \
+  zlib-dev \
+  cmake \
+  build-base \
+  apr-util-dev \
+  libmaxminddb-dev \
   ; \
-  rm -r /var/lib/apt/lists/*; \
-  \
   mkdir -p maxmind; \
   wget https://github.com/maxmind/mod_maxminddb/releases/download/1.2.0/mod_maxminddb-1.2.0.tar.gz; \
   tar -xzf mod_maxminddb-1.2.0.tar.gz -C maxmind  --strip-components=1; \
@@ -33,8 +30,6 @@ RUN set -eux; \
   ./configure; \
   make install; \
   cd ..; \
-  rm -rf maxmind
+  rm -rf maxmind; 
 
-RUN sh -c "echo /usr/local/lib  >> /etc/ld.so.conf.d/local.conf"
-RUN ldconfig
 RUN sed -i 's|#LoadModule suexec_module modules/mod_suexec.so|LoadModule maxminddb_module modules/mod_maxminddb.so|' /usr/local/apache2/conf/httpd.conf
